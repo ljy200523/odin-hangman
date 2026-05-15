@@ -1,9 +1,22 @@
 class Hangman
   def initialize
     @player = Player.new
-    @Computer = Computer.new
+    @computer = Computer.new
+    @counter = Counter.new
   end
   def play
+    @counter.insert_answer(@computer.get_word)
+    @counter.print_guessed_answer
+    loop do
+      guess = @player.get_guess
+      counter.fill_blank(guess)
+      @counter.print_guessed_answer
+      if check_correct
+        puts "You won! The answer is:"
+        @counter.print_correct_answer
+        break
+      end
+    end
   end
 end
 
@@ -46,6 +59,9 @@ class Counter
         @wrong_answer += 1
       end
     end
+  end
+  def check_correct
+    @actual_answer == @guessed_answer ? true : false
   end
   def print_actual_answer
     puts @actual_answer
