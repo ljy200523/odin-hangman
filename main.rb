@@ -9,15 +9,15 @@ class Hangman
     @counter.print_guessed_answer
     loop do
       guess = @player.get_guess
-      counter.fill_blank(guess)
+      @counter.fill_blank(guess)
       @counter.print_guessed_answer
-      if check_correct
+      if @counter.check_correct
         puts "You won! The answer is:"
-        @counter.print_correct_answer
+        @counter.print_actual_answer
         break
       elsif @counter.wrong_counter > 12
         puts "You lost! The answer is:"
-        @counter.print_correct_answer
+        @counter.print_actual_answer
         break
       end
     end
@@ -32,8 +32,10 @@ class Player
     loop do
       print "Guess a character: "
       response = gets.chomp.downcase
-      if response.length == 1 && response.match?(/[a-zA-Z]/) && !@exhuasted_char.includes(response)
-        @exhuasted_char.push(response)
+      puts "response: #{response}"
+      p "@exhuasted char: #{@exhausted_char}"
+      if response.length == 1 && response.match?(/[a-zA-Z]/) && !@exhausted_char.include?(response)
+        @exhausted_char.push(response)
         return response
       end
     end
@@ -73,10 +75,10 @@ class Counter
   end
   def fill_blank(character)
     @actual_answer.each_with_index do |element, index|
-      if character == element && !@guessed_answer.includes(character)
+      if character == element && !@guessed_answer.include?(character)
         @guessed_answer[index] = character
       else
-        @wrong_answer += 1
+        @wrong_counter += 1
       end
     end
   end
@@ -84,7 +86,7 @@ class Counter
     @actual_answer == @guessed_answer ? true : false
   end
   def print_actual_answer
-    puts @actual_answer
+    print @actual_answer
   end
   def print_guessed_answer
     puts @guessed_answer
