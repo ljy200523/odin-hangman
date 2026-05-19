@@ -19,8 +19,17 @@ class Hangman
         save_game()
         puts "Saved game"
         return
+      elsif guess == "load"
+        print "Input save file: "
+        save_file = gets.chomp
+        data = load_game(save_file)
+        @counter.actual_answer = data[:actual_answer]
+        @counter.guessed_answer = data[:guessed_answer]
+        @counter.wrong_counter = data[:wrong_counter]
+        puts "Loaded game"
+      else
+        @counter.fill_blank(guess)
       end
-      @counter.fill_blank(guess)
       @counter.print_guessed_answer
       @counter.print_wrong_counter
       if @counter.check_correct
@@ -43,6 +52,14 @@ class Hangman
     json_string = data.to_json
     File.open("odin_hangman_save.json", "w") do |file|
       file.write(json_string)
+    end
+  end
+  def load_game(user_file)
+    File.open(user_file, "r") do |file|
+      file_content = file.read
+      data = JSON.parse(file_content, symbolize_names: true)
+      puts data
+      return data
     end
   end
 end

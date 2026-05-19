@@ -4,7 +4,7 @@ class Counter
     @guessed_answer = []
     @wrong_counter = 0
   end
-  attr_reader :actual_answer, :guessed_answer, :wrong_counter
+  attr_accessor :actual_answer, :guessed_answer, :wrong_counter
   def insert_answer(answer)
     @actual_answer = answer.split("")
   end
