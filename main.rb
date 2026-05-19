@@ -60,6 +60,11 @@ class Counter
   def insert_answer(answer)
     @actual_answer = answer.split("")
   end
+  def insert_blank
+    for character in @actual_answer.length
+      @guessed_answer.push(" ")
+    end
+  end
   def fill_blank(character)
     @actual_answer.each_with_index do |element, index|
       if character == element && !@guessed_answer.includes(character)
