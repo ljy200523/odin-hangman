@@ -19,6 +19,7 @@ class Hangman
         save_game()
         puts "Saved game"
         return
+      end
       @counter.fill_blank(guess)
       @counter.print_guessed_answer
       @counter.print_wrong_counter
@@ -35,9 +36,9 @@ class Hangman
   end
   def save_game
     data = {
-      actual_answer: @computer.actual_answer
-      guessed_answer: @computer.guessed_answer
-      wrong_counter: @computer.wrong_counter
+      actual_answer: @counter.actual_answer,
+      guessed_answer: @counter.guessed_answer,
+      wrong_counter: @counter.wrong_counter
       }
     json_string = data.to_json
     File.open("odin_hangman_save.json", "w") do |file|
