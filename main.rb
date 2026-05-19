@@ -1,7 +1,7 @@
+require "json"
 require_relative "player"
 require_relative "computer"
 require_relative "counter"
-
 
 class Hangman
   def initialize
@@ -15,6 +15,10 @@ class Hangman
     @counter.print_guessed_answer
     loop do
       guess = @player.get_guess
+      if guess == "save"
+        save_game()
+        puts "Saved game"
+        return
       @counter.fill_blank(guess)
       @counter.print_guessed_answer
       @counter.print_wrong_counter
@@ -29,9 +33,18 @@ class Hangman
       end
     end
   end
+  def save_game
+    data = {
+      actual_answer: @computer.actual_answer
+      guessed_answer: @computer.guessed_answer
+      wrong_counter: @computer.wrong_counter
+      }
+    json_string = data.to_json
+    File.open("odin_hangman_save.json", "w") do |file|
+      file.write(json_string)
+    end
+  end
 end
-
-
 
 hangman = Hangman.new
 hangman.play

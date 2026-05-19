@@ -9,6 +9,8 @@ class Player
       if response.length == 1 && response.match?(/[a-zA-Z]/) && !@exhausted_char.include?(response)
         @exhausted_char.push(response)
         return response
+      elsif response.chomp.downcase == "save"
+        return "save"
       else
         puts "Already Guessed: #{@exhausted_char}"
       end
