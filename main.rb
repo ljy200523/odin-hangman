@@ -15,6 +15,10 @@ class Hangman
         puts "You won! The answer is:"
         @counter.print_correct_answer
         break
+      elsif @counter.wrong_counter > 12
+        puts "You lost! The answer is:"
+        @counter.print_correct_answer
+        break
       end
     end
   end
@@ -41,9 +45,11 @@ class Computer
     @word_list = []
   end
   def get_word
-    word_file = File.open("google-10000-english-no-swears.txt", "r") do |word|
-      if word.length > 4 && word.length < 13
-        @word_list.push(word)
+    word_file = File.open("/mnt/c/Users/Family/Downloads/google-10000-english-no-swears.txt", "r") do |file|
+      file.each_line do |word|
+        if word.length > 4 && word.length < 13
+          @word_list.push(word)
+        end
       end
     end
     return @word_list.uniq.shuffle.sample
@@ -56,7 +62,7 @@ class Counter
     @guessed_answer = []
     @wrong_counter = 0
   end
-  attr_accessor :name
+  attr_accessor :wrong_counter
   def insert_answer(answer)
     @actual_answer = answer.split("")
   end
@@ -89,3 +95,5 @@ class Counter
 end
 
 
+hangman = Hangman.new
+hangman.play
