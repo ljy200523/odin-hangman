@@ -21,10 +21,18 @@ class Hangman
 end
 
 class Player
+  def initialize
+    @exhausted_char = []
+  end
   def get_guess
-    print "Guess a character: "
-    response = gets.chomp.downcase
-    return response
+    loop do
+      print "Guess a character: "
+      response = gets.chomp.downcase
+      if response.length == 1 && response.match?(/[a-zA-Z]/) && !@exhuasted_char.includes(response)
+        @exhuasted_char.push(response)
+        return response
+      end
+    end
   end
 end
 
