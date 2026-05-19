@@ -22,7 +22,7 @@ end
 
 class Player
   def get_guess
-    print "Guess: "
+    print "Guess a character: "
     response = gets.chomp.downcase
     return response
   end
@@ -48,12 +48,13 @@ class Counter
     @guessed_answer = []
     @wrong_counter = 0
   end
+  attr_accessor :name
   def insert_answer(answer)
     @actual_answer = answer.split("")
   end
   def fill_blank(character)
-    @filled_answer.each_with_index do |element, index|
-      if character == element && !character.includes(@guessed_answer)
+    @actual_answer.each_with_index do |element, index|
+      if character == element && !@guessed_answer.includes(character)
         @guessed_answer[index] = character
       else
         @wrong_answer += 1
