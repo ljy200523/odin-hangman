@@ -1,16 +1,14 @@
 require "json"
 require_relative "player"
-require_relative "computer"
 require_relative "counter"
 
 class Hangman
   def initialize
     @player = Player.new
-    @computer = Computer.new
     @counter = Counter.new
   end
   def play
-    @counter.insert_answer(@computer.get_word)
+    @counter.get_answer
     @counter.insert_blank
     @counter.print_guessed_answer
     loop do

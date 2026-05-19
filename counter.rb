@@ -3,10 +3,19 @@ class Counter
     @actual_answer = []
     @guessed_answer = []
     @wrong_counter = 0
+    @word_list = []
   end
   attr_accessor :actual_answer, :guessed_answer, :wrong_counter
-  def insert_answer(answer)
-    @actual_answer = answer.split("")
+  def get_answer
+    word_file = File.open("/mnt/c/Users/Family/Downloads/google-10000-english-no-swears.txt", "r") do |file|
+      file.each_line do |word|
+        word = word.strip
+        if word.length > 4 && word.length < 13
+          @word_list.push(word)
+        end
+      end
+    end
+    @actual_answer = @word_list.uniq.shuffle.sample.split("")
   end
   def insert_blank
     @actual_answer.each do
