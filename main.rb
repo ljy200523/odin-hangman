@@ -36,7 +36,7 @@ class Hangman
         puts "You won! The answer is:"
         @counter.print_actual_answer
         break
-      elsif @counter.wrong_counter > 12
+      elsif @counter.wrong_counter > 11
         puts "You lost! The answer is:"
         @counter.print_actual_answer
         break

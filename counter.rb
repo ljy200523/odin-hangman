@@ -34,6 +34,6 @@ class Counter
     p @guessed_answer
   end
   def print_wrong_counter
-    puts "Wrong Counter: #{@wrong_counter}"
+    puts "Wrong Counter: #{@wrong_counter} (Game ends at 12th wrong answer)"
   end
 end
